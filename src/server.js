@@ -51,7 +51,7 @@ nodeApp.use((req, res, next) => {
     next()
   })
 
-nodeApp.post('/wemap/login', async (req, res) => {
+nodeApp.post('/11st/login', async (req, res) => {
     let userID = req.body.userID
     let userPW = req.body.userPW
 
@@ -73,7 +73,7 @@ nodeApp.post('/wemap/login', async (req, res) => {
     }
 })
 
-nodeApp.post('/wemap/upload', async (req, res) => {
+nodeApp.post('/11st/upload', async (req, res) => {
 
     let path = req.body.path
     let type = req.body.type

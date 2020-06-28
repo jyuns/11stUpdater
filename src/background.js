@@ -5,6 +5,8 @@ import {
   createProtocol,
   installVueDevtools
 } from 'vue-cli-plugin-electron-builder/lib'
+
+const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -25,8 +27,10 @@ function createWindow() {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
-    }
+    },
+    icon : path.join(__dirname, 'assets/icon.png')
   })
+  
   
 // running node server
 const nodeApp = require('./server')
@@ -64,7 +68,6 @@ app.on('activate', () => {
   }
 })
 
-import {session} from 'electron'
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -77,16 +80,6 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-
-  
-  const cookie = {'userID' : 'jys9775', 'userPW' : 'dbstjd12'}
-
-  session.defaultSession.cookies.set(cookie)
-    .then( () => {
-      console.log('success set cookies')
-    }, (error) => {
-      console.log(error)
-    })
 
   createWindow()
 })

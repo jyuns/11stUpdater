@@ -12,9 +12,9 @@
 
       <div class='login-wrapper'>
       <div class='login-form'>
-        <!--위메프 로그인-->
-        <v-text-field label='위메프 ID' v-model="userID" :rules='idRules' hide-details='auto' :disabled="disabledLogBtn" />
-        <v-text-field label='위메프 PW' v-model="userPW" :rules='pwRules' hide-details='auto' :disabled="disabledLogBtn" />
+        <!--11번가 로그인-->
+        <v-text-field label='11번가 ID' v-model="userID" :rules='idRules' hide-details='auto' :disabled="disabledLogBtn" />
+        <v-text-field label='11번가 PW' v-model="userPW" :rules='pwRules' hide-details='auto' :disabled="disabledLogBtn" />
       </div>
       <div class='log-btn-wrapper'>
         <v-btn class='log-btn' color='primary' @click='login()' :disabled="disabledLogBtn">로그인</v-btn>
@@ -64,7 +64,9 @@
 <script>
 
 import ProgressBar from 'vue-simple-progress'
-
+const tempCrypt = new require('js-encrypt')
+const JSEncrypt = new tempCrypt.JSEncrypt() 
+console.log(JSEncrypt)
 export default {
   name: 'App',
 
@@ -120,7 +122,7 @@ export default {
   methods : {
 
     async login() {
-      let result = await this.axios.post('http://localhost:8082/wemap/login', {
+      let result = await this.axios.post('http://localhost:8082/11st/login', {
         userID : this.userID,
         userPW : this.userPW,
       })
@@ -185,7 +187,7 @@ export default {
 
         for( let j = 0; j < data[key[i]].length; j++) {
 
-          let result = await this.axios.post('http://localhost:8082/wemap/upload', {
+          let result = await this.axios.post('http://localhost:8082/11st/upload', {
             cookies : this.successLogin,
             path : data[key[i]][j],
             type : (data[key[i]][j].split('.').pop()).toLowerCase(),
