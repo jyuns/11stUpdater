@@ -1,4 +1,4 @@
-# wemapUpdater
+# 11stUpdater
 
 ## Project setup
 ```
