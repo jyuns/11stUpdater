@@ -6,21 +6,6 @@ const nodeApp = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
-// 추후 이용
-// const cookieParser = require('cookie-parser')
-// nodeApp.use(cookieParser())
-
-
-// session local store
-/**let session = require('express-session');
-let fileStore = require('express-file-store')(session)
-
-nodeApp.use(session({
-    resave : false,
-    saveUninitialized : true,
-    store : new fileStore
-})) */
-
 nodeApp.use(cors())
 nodeApp.use(bodyParser.json({limit:'100mb'}))
 nodeApp.use(bodyParser.urlencoded({limit:'100mb', extended:true}))
@@ -66,6 +51,7 @@ nodeApp.post('/11st/login', async (req, res) => {
 
     try {
         shell.on('message', function(message) {
+            console.log(message)
             res.send(message)
         })
     } catch (err) {

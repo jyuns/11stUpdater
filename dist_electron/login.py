@@ -14,18 +14,14 @@ def login(userID, userPW) :
     }
 
     millis = str(round(time.time() * 1000))
-
-    res = s.get('https://wpartner.wemakeprice.com/salt.json?_=' + millis)
-    salt = json.loads(res.text)['data']['salt']
     
-
-    substrSalt = salt[1] + salt[4] + salt[8] + salt[12]
-
-    passwordHash = hashlib.sha1((substrSalt + hashlib.sha1(userPW.encode('utf-8')).hexdigest()).encode('utf-8')).hexdigest() + substrSalt
-    
-    result = s.post('https://wpartner.wemakeprice.com/login.json', data = {
-        'userId': userID,
-        'userPassword': passwordHash
+    result = s.post('https://login.11st.co.kr/auth/front/selleroffice/logincheck.tmall', data = {
+        'encryptedLoginName': userID,
+        'encryptedPassWord': userPW,
+        'priority': 92,
+        'authMethod': 'login',
+        'returnURL': 'http://soffice.11st.co.kr?ts=' + millis,
+        'autoId': 'Y'
     }, headers = headers)
 
     return {

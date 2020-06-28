@@ -64,9 +64,8 @@
 <script>
 
 import ProgressBar from 'vue-simple-progress'
-const tempCrypt = new require('js-encrypt')
-const JSEncrypt = new tempCrypt.JSEncrypt() 
-console.log(JSEncrypt)
+const JSEncrypt = require('./encrypt')
+
 export default {
   name: 'App',
 
@@ -122,9 +121,20 @@ export default {
   methods : {
 
     async login() {
+      
+      if(!this.userID.length) return
+      if(!this.userPW.length) return
+      
+      console.log()
+      JSEncrypt.default.prototype.setPublic('a650c97fe917f8cc0312541fd682ca221bc19d3e345cd07c241c266aca5d117d14d3f7f322de2282ef67c0aeb7a6eaae3bdff24c3ff661700a7906503cb8b8823c42a07fa5eb46aca7edfe52cabe1f2aa393f55cf52fd5be4316bb6aab39d1d51abfd7bd3d28700e7c1ff8bbeb549632b0b76b5be86a23b39fc8d3e703889189', '10001')
+      
+      let encryptedID = JSEncrypt.default.prototype.encrypt(this.userID)
+      let encryptedPW = JSEncrypt.default.prototype.encrypt(this.userPW)
+      
+      console.log(encryptedID, encryptedPW)
       let result = await this.axios.post('http://localhost:8082/11st/login', {
-        userID : this.userID,
-        userPW : this.userPW,
+        userID : encryptedID,
+        userPW : encryptedPW,
       })
 
       let temp = result.data
@@ -157,8 +167,8 @@ export default {
     },
 
     logout() {
-      this.userID = null
-      this.userPW = null
+      this.userID = ''
+      this.userPW = ''
       this.disabledLogBtn = false
       this.successLogin = null
     },
