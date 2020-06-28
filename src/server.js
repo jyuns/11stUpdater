@@ -51,7 +51,6 @@ nodeApp.post('/11st/login', async (req, res) => {
 
     try {
         shell.on('message', function(message) {
-            console.log(message)
             res.send(message)
         })
     } catch (err) {
